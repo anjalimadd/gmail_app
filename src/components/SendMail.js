@@ -3,9 +3,16 @@ import "./SendMail.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
-
+import { useDispatch } from "react-redux";
+import { closeSendMessage } from "../features/mailSlice";
 function SendMail() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -15,10 +22,12 @@ function SendMail() {
     <div className="sendMail">
       <div className="sendMail__header">
         <h3>New Message</h3>
-        <CloseIcon className="sendMail__close" />
+        <CloseIcon onClick={()=>dispatch(closeSendMessage())} className="sendMail__close" />
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input name="To"
+        <input
+          name="To"
           placeholder="To"
           type="text"
           {...register("to", { required: true })}
@@ -26,20 +35,25 @@ function SendMail() {
         {errors.to && <p className="sendMail__error">To is required</p>}
 
         <input
-        name="subject"
+          name="subject"
           placeholder="Subject"
           type="text"
           {...register("subject", { required: true })}
         />
-        {errors.subject && <p className="sendMail__error">Subject is required</p>}
+
+        {errors.subject && (
+          <p className="sendMail__error">Subject is required</p>
+        )}
 
         <input
-        name="message"
+          name="message"
           placeholder="Message..."
           type="text"
           {...register("message", { required: true })}
         />
-        {errors.message && <p className="sendMail__error">Message is required</p>}
+        {errors.message && (
+          <p className="sendMail__error">Message is required</p>
+        )}
 
         <div className="sendMail__options">
           <Button

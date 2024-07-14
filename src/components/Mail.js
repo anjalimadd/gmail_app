@@ -1,28 +1,20 @@
-import {
-  ArrowBack,
-  CheckCircle,
-  Delete,
-  LabelImportant,
-  MoreVert,
-  MoveToInbox,
-  WatchLater,
-} from "@material-ui/icons";
-import React from "react";
 import { IconButton } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
-import PrintIcon from "@material-ui/icons/Print";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MoveToInboxIcon from "@material-ui/icons/MoveToInbox";
-import ErrorIcon from "@material-ui/icons/Error";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EmailIcon from "@material-ui/icons/Email";
-import WatchLaterIcon from "@material-ui/icons/WatchLater";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ErrorIcon from "@material-ui/icons/Error";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LabelImportantIcon from "@material-ui/icons/LabelImportant";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import "./Mail.css";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import MoveToInboxIcon from "@material-ui/icons/MoveToInbox";
+import PrintIcon from "@material-ui/icons/Print";
+import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
+import WatchLaterIcon from "@material-ui/icons/WatchLater";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./Mail.css";
+
 function Mail() {
   const navigate = useNavigate();
   return (
@@ -65,26 +57,25 @@ function Mail() {
         </div>
         <div className="mail__toolsright">
           <IconButton>
-            <UnfoldMoreIcon/>
+            <UnfoldMoreIcon />
           </IconButton>
           <IconButton>
-            <PrintIcon/>
+            <PrintIcon />
           </IconButton>
           <IconButton>
-            <ExitToAppIcon/>
+            <ExitToAppIcon />
           </IconButton>
         </div>
       </div>
       <div className="mail__body">
         <div className="mail__bodyHeader">
           <h2>Subject</h2>
-          <LabelImportantIcon className="mail__important"/>
+          <LabelImportantIcon className="mail__important" />
           <p>Title</p>
           <p className="mail__time">10pm</p>
-
         </div>
         <div className="mail__message">
-         <p>This is the message</p> 
+          <p>This is the message</p>
         </div>
       </div>
     </div>

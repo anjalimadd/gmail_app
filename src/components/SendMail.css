@@ -2,6 +2,7 @@
   position: absolute;
   bottom: 0px;
   right: 50px;
+  background-color: #404040;
   width: 40%;
   height: 40%;
   max-width: 500px;
@@ -20,7 +21,6 @@
   align-items: center;
   color: gray;
   background-color: #404040;
-
 }
 
 .sendMail__header > h3 {
@@ -44,6 +44,14 @@
   flex-direction: column;
 }
 
+.sendMail__error {
+  color: red;
+  text-align: right;
+  margin: 0px;
+  font-size: 12px;
+  background-color: white;
+}
+
 .sendMail > form > input {
   height: 30px;
   padding: 10px;
@@ -56,8 +64,9 @@
   flex: 1;
 }
 
-.sendMail__error {
-  background-color: white;
-  color: red;
-  text-align: right;
+.sendMail__options {
+  background-color: #404040;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
