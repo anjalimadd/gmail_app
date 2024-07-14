@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, IconButton } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import RedoIcon from "@material-ui/icons/Redo";
@@ -13,8 +13,27 @@ import PeopleIcon from "@material-ui/icons/People";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
+import { db } from "../firebase"; // Import your Firebase configuration
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 
 function EmailList() {
+  const [emails, setEmails] = useState([]);
+
+  useEffect(() => {
+    const q = query(collection(db, "emails"), orderBy("timestamp", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setEmails(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(), // Spread the data directly
+        }))
+      );
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="emailList">
       <div className="emailList_settings">
@@ -51,16 +70,16 @@ function EmailList() {
         <Section Icon={LocalOfferIcon} title="Promotions" color="green" />
       </div>
       <div className="emailList__list">
-        <EmailRow title="Twitch" 
-        subject="Hey fellow streamer"
-        description="This is a test" 
-        time="10pm"
-        />
-          <EmailRow title="Twitch" 
-        subject="Hey fellow streamer"
-        description="This is a test" 
-        time="10pm"
-        />
+        {emails.map(({ id, to, subject, message, timestamp }) => (
+          <EmailRow
+            id={id}
+            key={id}
+            title={to}
+            subject={subject}
+            description={message}
+            time={new Date(timestamp?.seconds * 1000).toUTCString()}
+          />
+        ))}
       </div>
     </div>
   );

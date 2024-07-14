@@ -2,6 +2,15 @@
     flex: 1;
     overflow: scroll;
 }
+
+.emailList::--webkit-scrollbar{
+display: none;
+}
+
+.emailList{
+    -ms-over-style:none;
+    scrollbar-width: none;
+}
 .emailList_settings{
     position: sticky;
     top: 0;

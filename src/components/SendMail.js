@@ -5,8 +5,10 @@ import { Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeSendMessage } from "../features/mailSlice";
-function SendMail() {
+import { db } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
+function SendMail() {
   const dispatch = useDispatch();
   const {
     register,
@@ -14,15 +16,28 @@ function SendMail() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (formData) => {
+    try {
+      await addDoc(collection(db, "emails"), {
+        to: formData.to,
+        subject: formData.subject,
+        message: formData.message,
+        timestamp: serverTimestamp(), // Use serverTimestamp() from firebase/firestore
+      });
+      dispatch(closeSendMessage());
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
   return (
     <div className="sendMail">
       <div className="sendMail__header">
         <h3>New Message</h3>
-        <CloseIcon onClick={()=>dispatch(closeSendMessage())} className="sendMail__close" />
+        <CloseIcon
+          onClick={() => dispatch(closeSendMessage())}
+          className="sendMail__close"
+        />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
